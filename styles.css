@@ -1,0 +1,366 @@
+/* ============================
+   1. GLOBAL RESET & BASE
+   ============================ */
+
+/* Box-sizing and reset margins/padding */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Base styles for body */
+body {
+  font-family: Arial, sans-serif; 
+  line-height: 1.6;               
+  background-color: var(--color-background);
+  color: var(--color-text);
+}
+
+/* Remove underline on links; add focus styles later */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ============================
+   2. VARIABLES (CUSTOM PROPERTIES)
+   ============================ */
+
+:root {
+  --color-background: #fafafa;
+  --color-surface: #ffffff;
+  --color-border: #e0e0e0;
+  --color-text: #333333;
+  --color-muted: #666666;
+  --color-muted-bg: #f5f5f5;
+  --color-hover-bg: #eaeaea;
+  --color-focus: #005fcc;
+  --border-radius: 8px;
+  --box-shadow-light: 0 2px 4px rgba(0, 0, 0, 0.05);
+  --box-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.1);
+  --spacing-xs: 4px;
+  --spacing-s: 6px;
+  --spacing-m: 10px;
+  --spacing-l: 20px;
+  --font-size-base: 1rem;
+  --font-size-small: 0.95rem;
+  --font-size-large: 1.1rem;
+  --font-size-xl: 1.5rem;
+  --font-size-xxl: 2rem;
+}
+
+/* ============================
+   3. CONTAINER STYLES
+   ============================ */
+
+/* Common “card” style */
+.surface {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow-light);
+}
+
+/* Apply .surface to these sections */
+header,
+.side-container,
+.main,
+.media,
+.main-content-section {
+  /* If you have a build tool, you can use “composes: surface;” */
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow-light);
+}
+
+/* ============================
+   4. LAYOUT: GRID & CONTAINERS
+   ============================ */
+
+.grid {
+  display: grid;
+  grid-template-areas: "side main";
+  grid-template-columns: 1fr 2fr;
+  gap: var(--spacing-l);
+  padding: var(--spacing-l);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.side-container {
+  grid-area: side;
+  padding: var(--spacing-l);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-l);
+}
+
+.main {
+  grid-area: main;
+  padding: var(--spacing-l);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-l);
+}
+
+/* ============================
+   5. HEADER SECTION
+   ============================ */
+
+.header {
+  text-align: center;
+  padding: 1.5rem var(--spacing-l);
+  margin-bottom: var(--spacing-l);
+}
+
+.header h1 {
+  font-size: var(--font-size-xxl);
+  margin-bottom: var(--spacing-s);
+}
+
+.header audio {
+  width: 100%;
+  max-width: 360px;
+  height: 50px;
+  margin: 0 auto;
+  display: block;
+  border-radius: 4px;
+  border: none;
+}
+
+/* Playlist list/tiles */
+#playlist {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-m);
+  justify-content: center;
+  margin-top: var(--spacing-s);
+}
+
+#playlist li {
+  background-color: var(--color-muted-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  padding: var(--spacing-s) var(--spacing-l);
+  cursor: pointer;
+  font-size: var(--font-size-small);
+  color: var(--color-text);
+  user-select: none;
+  transition: background-color 0.2s, box-shadow 0.2s;
+  white-space: nowrap;
+  /* Make sure it is focusable: */
+  /* In your HTML, ensure <li tabindex="0" role="button"> */
+}
+
+/* Hover & Focus states */
+#playlist li:hover,
+#playlist li:focus {
+  background-color: var(--color-hover-bg);
+  box-shadow: var(--box-shadow-hover);
+  outline: none;
+}
+
+/* Selected state */
+#playlist li.selected {
+  background-color: #ddd;
+  border-color: #bbb;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* ============================
+   6. PROFILE (SIDEBAR) 
+   ============================ */
+
+.profile {
+  text-align: center;
+  padding: var(--spacing-l);
+}
+
+.profile-picture-container {
+  display: inline-block;
+  position: relative;
+  margin-bottom: var(--spacing-s);
+}
+
+.profile-picture-container .profile-img {
+  width: 7.5rem;  /* ~120px */
+  height: 7.5rem;
+  border-radius: 50%;
+  border: 2px solid var(--color-border);
+}
+
+.profile h2 {
+  font-size: var(--font-size-xl);
+  margin-bottom: var(--spacing-s);
+}
+
+.status {
+  display: inline-block;
+  padding: var(--spacing-xs) var(--spacing-m);
+  border-radius: 12px;
+  font-size: var(--font-size-small);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-muted-bg);
+}
+
+.profile p {
+  margin-top: var(--spacing-s);
+  font-size: var(--font-size-small);
+}
+
+/* ============================
+   7. SOCIAL LINKS (SIDEBAR)
+   ============================ */
+
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-m);
+  margin-top: var(--spacing-s);
+}
+
+.social-btn {
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+  /* In your HTML, use <a> or <button> for accessibility */
+}
+
+.social-btn:hover,
+.social-btn:focus {
+  transform: translateY(-2px);
+  box-shadow: var(--box-shadow-hover);
+  outline: none;
+}
+
+.social-btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ============================
+   8. MEDIA SECTION (SIDEBAR)
+   ============================ */
+
+.media {
+  padding: var(--spacing-l);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-s);
+  overflow-y: auto;
+}
+
+.media img {
+  width: 100%;
+  max-width: 200px;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+}
+
+.media p {
+  font-size: var(--font-size-small);
+}
+
+/* ============================
+   9. MAIN CONTENT SECTIONS
+   ============================ */
+
+.main-text {
+  text-align: center;
+  margin-bottom: var(--spacing-l);
+}
+
+.main-text .title {
+  font-size: 1.8rem;
+  margin-bottom: var(--spacing-s);
+}
+
+.main-text .subtitle {
+  font-size: var(--font-size-large);
+  color: var(--color-muted);
+}
+
+.main-content-section {
+  padding: var(--spacing-l);
+}
+
+.main-content-section h3 {
+  font-size: 1.3rem;
+  margin-bottom: var(--spacing-s);
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: var(--spacing-xs);
+}
+
+.main-content-section p,
+.main-content-section li {
+  margin-bottom: var(--spacing-s);
+  font-size: var(--font-size-small);
+}
+
+.main-content-section ul {
+  list-style: disc;
+  margin-left: var(--spacing-l);
+}
+
+/* ============================
+   10. IFRAME OVERLAY / MODAL
+   ============================ */
+
+.iframe-overlay {
+  display: none; 
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5); /* Backdrop */
+}
+
+/* Add .active in JS to show overlay */
+.iframe-overlay.active {
+  display: flex;
+}
+
+.iframe-overlay iframe {
+  width: 90%;
+  height: 90%;
+  border: none;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.iframe-overlay .close-btn {
+  position: absolute;
+  top: var(--spacing-l);
+  right: var(--spacing-l);
+  font-size: 1.5rem;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+}
+
+/* ============================
+   11. FOCUS & ACCESSIBILITY
+   ============================ */
+
+/* Focus styles for interactive elements */
+a:focus,
+button:focus,
+#playlist li:focus,
+.social-btn:focus {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
