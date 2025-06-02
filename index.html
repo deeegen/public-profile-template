@@ -2,80 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>About</title>
+    <title>About u :D</title>
+    <link rel="stylesheet" href="styles.css" />
     <style>
-      /* ===== Base/Background ===== */
-      * { box-sizing: border-box; margin: 0; padding: 0; }
-      body { font-family: Arial, sans-serif; line-height: 1.6; background: #fafafa; color: #333; }
-      a { text-decoration: none; color: inherit; }
-
-      /* ===== Container Styles ===== */
-      header, .side-container, .main, .media, .main-content-section {
-        background: #fff;
-        border: 1px solid #e0e0e0;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-      }
-
-      /* ===== Header ===== */
-      .header { text-align: center; padding: 30px 20px; margin-bottom: 20px; }
-      .header h1 { font-size: 2rem; margin-bottom: 10px; }
-      .header audio { width: 100%; max-width: 360px; height: 50px; margin: 0 auto; display: block; border-radius: 4px; border: 1px solid #ddd; }
-      #playlist { list-style: none; padding: 0; margin: 0; display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;
-}
-#playlist li { background: #f5f5f5; border: 1px solid #ddd; border-radius: 6px; padding: 6px 14px; cursor: pointer; font-size: 0.95rem; color: #333; user-select: none; transition: background-color 0.2s ease, box-shadow 0.2s ease;
-white-space: nowrap;
-}
-#playlist li:hover { background-color: #eaeaea;  box-shadow: 0 2px 6px rgba(0,0,0,0.1);}
-#playlist li.selected { background-color: #ddd;  border-color: #bbb;  font-weight: 600  box-shadow: 0 2px 8px rgba(0,0,0,0.15);}
-
-      /* ===== Main Grid ===== */
-      .grid {
-        display: grid;
-        grid-template-areas: "side main";
-        grid-template-columns: 1fr 2fr;
-        gap: 20px;
-        padding: 20px;
-        max-width: 1200px;
-        margin: 0 auto;
-      }
-
-      /* ===== Side Container ===== */
-      .side-container { grid-area: side; padding: 20px; display: flex; flex-direction: column; gap: 20px; }
-
-      /* ===== Profile ===== */
-      .profile { text-align: center; padding: 20px; }
-      .profile-picture-container { display: inline-block; position: relative; margin-bottom: 15px; }
-      .profile-picture-container .profile-img { width: 120px; height: 120px; border-radius: 50%; border: 2px solid #ddd; }
-      .profile h2 { font-size: 1.5rem; margin-bottom: 8px; }
-      .status { display: inline-block; padding: 4px 10px; border-radius: 12px; font-size: 0.9rem; border: 1px solid #ddd; background: #f5f5f5; }
-      .profile p { margin-top: 10px; font-size: 0.95rem; }
-
-      /* ===== Social Links ===== */
-      .social-links { display: flex; justify-content: center; gap: 12px; margin-top: 10px; }
-      .social-btn { width: 40px; height: 40px; border: 1px solid #ddd; border-radius: 50%; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; }
-      .social-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-      .social-btn img { width: 100%; height: 100%; object-fit: cover; }
-
-      /* ===== Media Section ===== */
-      .media { padding: 20px; display: flex; flex-direction: column; gap: 12px; overflow-y: auto; }
-      .media img { width: 100%; max-width: 200px; border: 1px solid #ddd; border-radius: 4px; }
-      .media p { font-size: 0.95rem; }
-
-      /* ===== Main Content ===== */
-      .main { grid-area: main; padding: 20px; display: flex; flex-direction: column; gap: 20px; }
-      .main-text { text-align: center; margin-bottom: 20px; }
-      .main-text .title { font-size: 1.8rem; margin-bottom: 6px; }
-      .main-text .subtitle { font-size: 1.1rem; color: #666; }
-      .main-content-section { padding: 20px; }
-      .main-content-section h3 { font-size: 1.3rem; margin-bottom: 10px; border-bottom: 1px solid #e0e0e0; padding-bottom: 6px; }
-      .main-content-section p, .main-content-section li { margin-bottom: 8px; font-size: 0.95rem; }
-      .main-content-section ul { list-style: disc; margin-left: 20px; }
-
-      /* ===== Iframe Overlay ===== */
-      .iframe-overlay { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; align-items: center; justify-content: center; }
-      .iframe-overlay iframe { width: 90%; height: 90%; border: none; border-radius: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
-      .iframe-overlay .close-btn { position: absolute; top: 16px; right: 16px; font-size: 1.5rem; cursor: pointer; }
+            
     </style>
   </head>
   <body>
@@ -100,34 +30,33 @@ white-space: nowrap;
         <div class="profile">
           <!-- Profile Picture: replace src -->
           <div class="profile-picture-container">
-            <img src="https://via.placeholder.com/120" alt="Your Photo" class="profile-img" />
+            <img
+              src="https://tr.rbxcdn.com/180DAY-3f9aceb0bb3efd1c0283638edb3f84bf/420/420/Hat/Webp/noFilter"
+              alt="Profile picture"
+              class="profile-img"
+            />
           </div>
-          <!-- Username: update text -->
-          <h2>@YourName</h2>
-          <!-- Status: update text -->
-          <div class="status">Anything</div>
-          <!-- Bio: add your tagline -->
+          <h2>@username</h2>
+          <div class="status">Status</div>
           <p>Share a short bio or tagline here.</p>
 
           <!-- ===== SOCIAL LINKS ===== -->
           <div class="social-links">
-            <!-- Replace href and img src for each platform -->
             <a href="#" target="_blank" class="social-btn" title="Twitter">
-              <img src="https://via.placeholder.com/40" alt="Twitter" />
+              <img src="https://firstbenefits.org/wp-content/uploads/2017/10/placeholder.png" alt="Twitter" />
             </a>
             <a href="#" target="_blank" class="social-btn" title="GitHub">
-              <img src="https://via.placeholder.com/40" alt="GitHub" />
+              <img src="https://firstbenefits.org/wp-content/uploads/2017/10/placeholder.png" alt="GitHub" />
             </a>
             <a href="#" target="_blank" class="social-btn" title="LinkedIn">
-              <img src="https://via.placeholder.com/40" alt="LinkedIn" />
+              <img src="https://firstbenefits.org/wp-content/uploads/2017/10/placeholder.png" alt="LinkedIn" />
             </a>
           </div>
         </div>
 
         <!-- ===== MEDIA ===== -->
         <div class="media">
-          <!-- Media Image: replace src -->
-          <img src="https://via.placeholder.com/200" alt="Media Image" />
+          <img src="https://firstbenefits.org/wp-content/uploads/2017/10/placeholder.png" alt="Media Image" />
           <p><strong>Interests:</strong></p>
           <p>- Interest one</p>
           <p>- Interest two</p>
@@ -162,44 +91,44 @@ white-space: nowrap;
 
     <script>
       // Simple overlay toggle script
-      const overlay = document.getElementById('iframeOverlay');
-      document.querySelectorAll('.social-btn').forEach(btn => {
-        btn.addEventListener('click', () => alert('Opening ' + btn.title));
+      const overlay = document.getElementById("iframeOverlay");
+      document.querySelectorAll(".social-btn").forEach((btn) => {
+        btn.addEventListener("click", () => alert("Opening " + btn.title));
       });
-      document.getElementById('closeOverlay').addEventListener('click', () => {
-        overlay.style.display = 'none';
+      document.getElementById("closeOverlay").addEventListener("click", () => {
+        overlay.style.display = "none";
       });
     </script>
-      <!-- JSON playlist data -->
-  <script type="application/json" id="playlist-data">
-  [
-    {
-      "title": "Song 1",
-      "url": "https://cdn.example.com/audio/audio.mp3"
-    },
-    {
-      "title": "Song 2",
-      "url": "https://cdn.example.com/audio/audio.mp3"
-    },
-    {
-      "title": "Song 3",
-      "url": "https://cdn.example.com/audio/audio.mp3"
-    },
-    {
-      "title": "Song 4",
-      "url": "https://cdn.example.com/audio/audio.mp3"
-    },
-    {
-      "title": "Song 5",
-      "url": "https://cdn.example.com/audio/audio.mp3"
-    },
-    {
-      "title": "Song 6",
-      "url": "https://cdn.example.com/audio/audio.mp3"
-    }
-  ]
-  </script>
+    <!-- JSON playlist data -->
+    <script type="application/json" id="playlist-data">
+      [
+        {
+          "title": "Song 1",
+          "url": "https://cdn.example.com/audio/audio.mp3"
+        },
+        {
+          "title": "Song 2",
+          "url": "https://cdn.example.com/audio/audio.mp3"
+        },
+        {
+          "title": "Song 3",
+          "url": "https://cdn.example.com/audio/audio.mp3"
+        },
+        {
+          "title": "Song 4",
+          "url": "https://cdn.example.com/audio/audio.mp3"
+        },
+        {
+          "title": "Song 5",
+          "url": "https://cdn.example.com/audio/audio.mp3"
+        },
+        {
+          "title": "Song 6",
+          "url": "https://cdn.example.com/audio/audio.mp3"
+        }
+      ]
+    </script>
 
-  <script src="script.js"></script>
+    <script src="script.js"></script>
   </body>
 </html>
