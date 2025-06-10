@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f4f4f4;
+      color: #333;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 6px;
+    }
+
+    h1 {
+      font-size: 24px;
+      border-bottom: 2px solid #333;
+      padding-bottom: 10px;
+    }
+
+    .post {
+      margin-bottom: 30px;
+    }
+
+    .post h2 {
+      font-size: 20px;
+      color: #0073e6;
+    }
+
+    .date {
+      font-size: 14px;
+      color: #777;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 10px;
+      }
+
+      .container {
+        padding: 15px;
+      }
+
+      h1 {
+        font-size: 20px;
+      }
+
+      .post h2 {
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Ur blog :3</h1>
+    <div id="posts"></div>
+  </div>
+
+  <script>
+    // Dynamically generate content based on json data from blogs.json
+    fetch('../lib/blogs.json')
+      .then(response => response.json())
+      .then(data => {
+        const postsContainer = document.getElementById('posts');
+        data.forEach(post => {
+          const postElement = document.createElement('div');
+          postElement.className = 'post';
+
+          postElement.innerHTML = `
+            <h2>${post.title}</h2>
+            <div class="date">${post.date}</div>
+            <p>${post.content}</p>
+          `;
+
+          postsContainer.appendChild(postElement);
+        });
+      })
+      .catch(error => {
+        console.error('Error loading blog posts:', error);
+      });
+  </script>
+</body>
+</html>
