@@ -3,32 +3,23 @@
   <head>
     <meta charset="UTF-8" />
     <title>About u :D</title>
-    <link rel="stylesheet" href="styles.css" />
-    <style>
-            
-    </style>
+    <link rel="stylesheet" href="lib/style.css" />
   </head>
   <body>
-    <!-- ===== HEADER ===== -->
     <header class="header">
       <h1>Welcome!</h1>
       <audio id="audio" controls crossorigin="anonymous"></audio>
       <ul id="playlist"></ul>
     </header>
 
-    <!-- ===== MAIN GRID ===== -->
     <section class="grid">
-      <!-- ===== IFRAME OVERLAY ===== -->
       <div class="iframe-overlay" id="iframeOverlay">
         <div class="close-btn" id="closeOverlay">×</div>
-        <iframe src="https://example.com"></iframe>
+        <iframe id="iframeContent" src=""></iframe>
       </div>
 
-      <!-- ===== SIDE CONTAINER ===== -->
       <div class="side-container">
-        <!-- ===== PROFILE ===== -->
         <div class="profile">
-          <!-- Profile Picture: replace src -->
           <div class="profile-picture-container">
             <img
               src="https://tr.rbxcdn.com/180DAY-3f9aceb0bb3efd1c0283638edb3f84bf/420/420/Hat/Webp/noFilter"
@@ -40,7 +31,6 @@
           <div class="status">Status</div>
           <p>Share a short bio or tagline here.</p>
 
-          <!-- ===== SOCIAL LINKS ===== -->
           <div class="social-links">
             <a href="#" target="_blank" class="social-btn" title="Twitter">
               <img src="https://firstbenefits.org/wp-content/uploads/2017/10/placeholder.png" alt="Twitter" />
@@ -54,7 +44,6 @@
           </div>
         </div>
 
-        <!-- ===== MEDIA ===== -->
         <div class="media">
           <img src="https://firstbenefits.org/wp-content/uploads/2017/10/placeholder.png" alt="Media Image" />
           <p><strong>Interests:</strong></p>
@@ -62,17 +51,17 @@
           <p>- Interest two</p>
           <p>- Interest three</p>
         </div>
+
+        <button id="openBlog" class="blog-btn">Open Blog</button>
+
       </div>
 
-      <!-- ===== MAIN CONTENT ===== -->
       <div class="main">
-        <!-- Optional Header Text: edit or remove -->
         <div class="main-text">
           <div class="title">Main Title</div>
           <div class="subtitle">Subtitle goes here</div>
         </div>
 
-        <!-- Content Section: duplicate to add more -->
         <div class="main-content-section">
           <h3>Section Title</h3>
           <p>Write your content here.</p>
@@ -89,17 +78,6 @@
       </div>
     </section>
 
-    <script>
-      // Simple overlay toggle script
-      const overlay = document.getElementById("iframeOverlay");
-      document.querySelectorAll(".social-btn").forEach((btn) => {
-        btn.addEventListener("click", () => alert("Opening " + btn.title));
-      });
-      document.getElementById("closeOverlay").addEventListener("click", () => {
-        overlay.style.display = "none";
-      });
-    </script>
-    <!-- JSON playlist data -->
     <script type="application/json" id="playlist-data">
       [
         {
@@ -129,6 +107,82 @@
       ]
     </script>
 
-    <script src="script.js"></script>
+    <script>
+      // This script manages interaction with social buttons and a blog iframe overlay.
+      // It shows alerts for social link clicks (excluding the blog), 
+      // opens the blog in an iframe overlay, and handles overlay closing.
+
+      const overlay = document.getElementById("iframeOverlay");
+      const iframe = document.getElementById("iframeContent");
+      const openBlogBtn = document.getElementById("openBlog");
+
+      document.querySelectorAll(".social-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          if (btn !== openBlogBtn) {
+            alert("Opening " + btn.title);
+          }
+        });
+      });
+      
+      openBlogBtn.addEventListener("click", () => {
+        iframe.src = "views/blog.html";
+        overlay.classList.add("active");
+      });
+
+      document.getElementById("closeOverlay").addEventListener("click", () => {
+        overlay.classList.remove("active");
+        iframe.src = "";
+      });
+    </script>
+
+    <script>
+      // This script handles a dynamic audio playlist.
+      // It reads song data from the DOM, displays a clickable playlist,
+      // loads and plays selected tracks, and auto-plays a random new track when one ends.
+
+      const playlistDataEl = document.getElementById("playlist-data");
+      const playlist = JSON.parse(playlistDataEl.textContent);
+      const audio = document.getElementById("audio");
+      const playlistEl = document.getElementById("playlist");
+
+      playlist.forEach((song, idx) => {
+        const li = document.createElement("li");
+        li.textContent = song.title;
+        li.addEventListener("click", () => loadTrack(idx));
+        playlistEl.appendChild(li);
+      });
+
+      let currentTrackIndex = null;
+
+      function getRandomTrackIndex(excludeIndex) {
+        let index;
+        do {
+          index = Math.floor(Math.random() * playlist.length);
+        } while (index === excludeIndex);
+        return index;
+      }
+
+      function loadTrack(index) {
+        currentTrackIndex = index;
+        audio.src = playlist[index].url;
+        audio.play();
+        updateSelection(index);
+      }
+
+      function updateSelection(selectedIndex) {
+        Array.from(playlistEl.children).forEach((li, idx) => {
+          li.classList.toggle("selected", idx === selectedIndex);
+        });
+      }
+
+      loadTrack(getRandomTrackIndex(null));
+
+      audio.addEventListener("ended", () => {
+        const nextIndex = getRandomTrackIndex(currentTrackIndex);
+        loadTrack(nextIndex);
+      });
+    </script>
+
+    <script src="lib/script.js"></script>
   </body>
 </html>
