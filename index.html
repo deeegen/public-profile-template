@@ -6,11 +6,21 @@
     <link rel="stylesheet" href="lib/style.css" />
   </head>
   <body>
-    <header class="header">
-      <h1>Welcome!</h1>
-      <audio id="audio" controls crossorigin="anonymous"></audio>
-      <ul id="playlist"></ul>
-    </header>
+    <header class="header" style="position: relative;">
+  <h1>Welcome!</h1>
+  <canvas id="oscilloscope" style="
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    z-index: 0;
+    background-color: transparent;
+  "></canvas>
+  <audio id="audio" controls crossorigin="anonymous" style="position: relative; z-index: 1;"></audio>
+  <ul id="playlist"></ul>
+</header>
+
 
     <section class="grid">
       <div class="iframe-overlay" id="iframeOverlay">
@@ -53,7 +63,6 @@
         </div>
 
         <button id="openBlog" class="blog-btn">Open Blog</button>
-
       </div>
 
       <div class="main">
@@ -77,112 +86,14 @@
         </div>
       </div>
     </section>
-
     <script type="application/json" id="playlist-data">
       [
-        {
-          "title": "Song 1",
-          "url": "https://cdn.example.com/audio/audio.mp3"
-        },
-        {
-          "title": "Song 2",
-          "url": "https://cdn.example.com/audio/audio.mp3"
-        },
-        {
-          "title": "Song 3",
-          "url": "https://cdn.example.com/audio/audio.mp3"
-        },
-        {
-          "title": "Song 4",
-          "url": "https://cdn.example.com/audio/audio.mp3"
-        },
-        {
-          "title": "Song 5",
-          "url": "https://cdn.example.com/audio/audio.mp3"
-        },
-        {
-          "title": "Song 6",
-          "url": "https://cdn.example.com/audio/audio.mp3"
-        }
+        {"title": "Song One", "url": "https://files.catbox.moe/a61oxd.mp3"},
+        {"title": "Song Two", "url": "https://files.catbox.moe/7yydn8.mp3"},
+        {"title": "Song Three", "url": "songs/song3.mp3"}
       ]
     </script>
-
-    <script>
-      // This script manages interaction with social buttons and a blog iframe overlay.
-      // It shows alerts for social link clicks (excluding the blog), 
-      // opens the blog in an iframe overlay, and handles overlay closing.
-
-      const overlay = document.getElementById("iframeOverlay");
-      const iframe = document.getElementById("iframeContent");
-      const openBlogBtn = document.getElementById("openBlog");
-
-      document.querySelectorAll(".social-btn").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          if (btn !== openBlogBtn) {
-            alert("Opening " + btn.title);
-          }
-        });
-      });
-      
-      openBlogBtn.addEventListener("click", () => {
-        iframe.src = "views/blog.html";
-        overlay.classList.add("active");
-      });
-
-      document.getElementById("closeOverlay").addEventListener("click", () => {
-        overlay.classList.remove("active");
-        iframe.src = "";
-      });
-    </script>
-
-    <script>
-      // This script handles a dynamic audio playlist.
-      // It reads song data from the DOM, displays a clickable playlist,
-      // loads and plays selected tracks, and auto-plays a random new track when one ends.
-
-      const playlistDataEl = document.getElementById("playlist-data");
-      const playlist = JSON.parse(playlistDataEl.textContent);
-      const audio = document.getElementById("audio");
-      const playlistEl = document.getElementById("playlist");
-
-      playlist.forEach((song, idx) => {
-        const li = document.createElement("li");
-        li.textContent = song.title;
-        li.addEventListener("click", () => loadTrack(idx));
-        playlistEl.appendChild(li);
-      });
-
-      let currentTrackIndex = null;
-
-      function getRandomTrackIndex(excludeIndex) {
-        let index;
-        do {
-          index = Math.floor(Math.random() * playlist.length);
-        } while (index === excludeIndex);
-        return index;
-      }
-
-      function loadTrack(index) {
-        currentTrackIndex = index;
-        audio.src = playlist[index].url;
-        audio.play();
-        updateSelection(index);
-      }
-
-      function updateSelection(selectedIndex) {
-        Array.from(playlistEl.children).forEach((li, idx) => {
-          li.classList.toggle("selected", idx === selectedIndex);
-        });
-      }
-
-      loadTrack(getRandomTrackIndex(null));
-
-      audio.addEventListener("ended", () => {
-        const nextIndex = getRandomTrackIndex(currentTrackIndex);
-        loadTrack(nextIndex);
-      });
-    </script>
-
-    <script src="lib/script.js"></script>
+    <script src="lib/player.js"></script>
+    <script src="lib/overlays.js"></script>
   </body>
 </html>
