@@ -38,6 +38,16 @@
       color: #777;
     }
 
+    .post img {
+  width: 40%;
+  height: auto;
+  display: block;
+  margin: 10px 0;
+  border-radius: 4px;
+  object-fit: contain;
+}
+
+
     @media (max-width: 600px) {
       body {
         padding: 10px;
@@ -64,27 +74,43 @@
   </div>
 
   <script>
-    // Dynamically generate content based on json data from blogs.json
-    fetch('../lib/blogs.json')
-      .then(response => response.json())
-      .then(data => {
-        const postsContainer = document.getElementById('posts');
-        data.forEach(post => {
-          const postElement = document.createElement('div');
-          postElement.className = 'post';
+  /**
+   * Replaces [img]...[/img] blocks with <img> tags safely.
+   * Supports multiple image tags in the content.
+   * @param {string} content - Blog post content string
+   * @returns {string} - Processed HTML string
+   */
+  function parseContent(content) {
+    // Simple image tag parser - assumes well-formed input
+    return content.replace(/\[img\](.*?)\[\/img\]/gi, (match, url) => {
+      // Optionally, validate or sanitize the URL here
+      const safeUrl = url.trim();
+      return `<img src="${safeUrl}" alt="blog image" style="max-width: 100%; margin: 10px 0;" />`;
+    });
+  }
 
-          postElement.innerHTML = `
-            <h2>${post.title}</h2>
-            <div class="date">${post.date}</div>
-            <p>${post.content}</p>
-          `;
+  fetch('../lib/blogs.json')
+    .then(response => response.json())
+    .then(data => {
+      const postsContainer = document.getElementById('posts');
+      data.forEach(post => {
+        const postElement = document.createElement('div');
+        postElement.className = 'post';
 
-          postsContainer.appendChild(postElement);
-        });
-      })
-      .catch(error => {
-        console.error('Error loading blog posts:', error);
+        const parsedContent = parseContent(post.content);
+
+        postElement.innerHTML = `
+          <h2>${post.title}</h2>
+          <div class="date">${post.date}</div>
+          <div>${parsedContent}</div>
+        `;
+
+        postsContainer.appendChild(postElement);
       });
-  </script>
+    })
+    .catch(error => {
+      console.error('Error loading blog posts:', error);
+    });
+</script>
 </body>
 </html>
